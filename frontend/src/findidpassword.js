@@ -22,26 +22,33 @@ function App() {
   //아이디,비밀번호를 찾는 함수에서는 버튼을 클릭하면 결과가 나오게 한다.
    const handleIdSubmit = async(e)=>{
 
-    e.preventDefault(); //submit이 동작했을 때 페이지를 새로고침 시키지 않기 위해서 사용한다.
-    try{
-      const response = await axios.get("http://localhost:8080/api/findid",{email})
-      setIdMessage(response.data.message);  //백엔드에서 아이디에 대한 정보를 받아온다.
+    e.preventDefault();
+    try {
+      const response = await axios.get("http://localhost:8080/api/findid", {
+        params: { //프론트에서 데이터를 보낼 때, params에 매개변수를 올바르게 담아야 한다. 그렇지 않으면 오류가 난다.
+          email: email
+        }
+      });
+      setIdMessage(response.data);
+    } catch (error) {
+      setErrorMessage("이메일을 찾는 동안 오류가 발생했습니다.");
+      console.log(errorMessage);
     }
-      catch(error){
-        setErrorMessage("이메일을 찾는 동안 오류가 발생했습니다."); //오류 메시지를 받아온다.
-        console.log(errorMessage);
-      }
     }
+      
+    
 
-    const handlePasswordSubmit = async(e)=>{
+    const handlePasswordSubmit = async (e) => {
       e.preventDefault();
-      try{
-        const response = await axios.get("http://localhost:8080/api/findpassword",{userId})
-
-        setPasswordMessage(response.data.message); //백엔드에서 비밀번호에 대한 정보를 받아온다.
-      }
-      catch(error){
-        setErrorMessage("아이디를 찾는 동안 오류가 발생했습니다."); // 오류 메시지를 받아온다.
+      try {
+        const response = await axios.get("http://localhost:8080/api/findpassword", {
+          params: { 
+            userId: userId
+          }
+        });
+        setPasswordMessage(response.data);
+      } catch (error) {
+        setErrorMessage("아이디를 찾는 동안 오류가 발생했습니다.");
         console.log(errorMessage);
       }
     }
@@ -69,7 +76,7 @@ function App() {
             <span className={idMessage==="아이디 값을 찾을 수 없습니다."? "red-text":"green-text"}>{idMessage}</span>
             <input  className="typeid" type="text" placeholder="아이디를 입력해주세요." value={userId} onChange={(e)=>setUserId(e.target.value)} />
             <button  className="findidpassword" type="submit"onClick={handlePasswordSubmit}>비밀번호 찾기</button>
-            <span className={passwordMessage==="비밀번호 값을 찾을 수 없습니다."? "red-text":"green-text"}>{idMessage}</span>
+            <span className={passwordMessage ==="비밀번호 값을 찾을 수 없습니다."? "red-text":"green-text"}>{passwordMessage}</span>
           <a href="/main" className="gotomain">메인 페이지로 돌아가시려면 여기를 클릭해주세요.</a>
           </form>
         </div>

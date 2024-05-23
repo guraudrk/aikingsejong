@@ -5,19 +5,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
-        .csrf(csrf -> csrf.disable()) // .필요한 경우 CSRF 비활성화
+        .csrf(csrf -> csrf.disable()) // 필요한 경우 CSRF 비활성화
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers("/api/checkemail", "/api/checkid", "/api/signup", "/api/login", "/api/login",
                 "/api/findid")
@@ -29,16 +26,4 @@ public class SecurityConfig {
     return http.build();
   }
 
-  @Bean
-  public CorsFilter corsFilter() {
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    CorsConfiguration config = new CorsConfiguration();
-    config.setAllowCredentials(true);
-    config.addAllowedOrigin("*"); // 모든 출처 허용, 필요에 따라 변경
-    config.addAllowedHeader("*");
-    config.addAllowedMethod("*");
-    source.registerCorsConfiguration("/**", config);
-    return new CorsFilter((CorsConfigurationSource) source); // CorsConfigurationSource로 캐스팅
-
-  }
 }
