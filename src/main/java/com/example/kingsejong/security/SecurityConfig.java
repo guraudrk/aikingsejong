@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -19,12 +23,22 @@ public class SecurityConfig {
                 "/api/findid")
             .permitAll() // 인증 없이 접근 허용
             .anyRequest().authenticated())
-        .formLogin(form -> form
-            .loginPage("/login")
-            .permitAll())
         .logout(logout -> logout
             .permitAll());
 
     return http.build();
+  }
+
+  @Bean
+  public CorsFilter corsFilter() {
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowCredentials(true);
+    config.addAllowedOrigin("*"); // 모든 출처 허용, 필요에 따라 변경
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("*");
+    source.registerCorsConfiguration("/**", config);
+    return new CorsFilter((CorsConfigurationSource) source); // CorsConfigurationSource로 캐스팅
+
   }
 }
