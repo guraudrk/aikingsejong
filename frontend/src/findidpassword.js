@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './css/findidpassword.css';
 
 
@@ -12,24 +12,40 @@ function App() {
 
 
 
-  //백엔드에서 가져온 데이터를 저장한다.
-    const [data, setData] = useState(null);
+  const [email,setEmail] = useState("");
+  const [userId,setUserId] = useState("");
+  const [errorMessage,setErrorMessage] = useState("");
+  const [idMessage,setIdMessage] = useState(""); //아이디를 백엔드에서 담아온다.
+  const [passwordMessage,setPasswordMessage] = useState(""); //비밀번호를 백엔드에서 담아온다.
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-            //백엔드의 api/main(메인페이지) 엔드포인트를 불러옴.
-          const response = await axios.get("/api/findidpassword");
-          setData(response.data);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-  
-      fetchData();
-      //fetchData는 서버로 네트워크 요청을 보내고 응답을 받을 수 있게 하는 메서드이다.
-    }, []);
-  
+  //이메일을 입력할 때 작동하는 함수.
+  //아이디,비밀번호를 찾는 함수에서는 버튼을 클릭하면 결과가 나오게 한다.
+   const handleIdSubmit = async(e)=>{
+
+    e.preventDefault(); //submit이 동작했을 때 페이지를 새로고침 시키지 않기 위해서 사용한다.
+    try{
+      const response = await axios.get("http://localhost:8080/api/findid",{email})
+      setIdMessage(response.data.message);  //백엔드에서 아이디에 대한 정보를 받아온다.
+    }
+      catch(error){
+        setErrorMessage("이메일을 찾는 동안 오류가 발생했습니다."); //오류 메시지를 받아온다.
+        console.log(errorMessage);
+      }
+    }
+
+    const handlePasswordSubmit = async(e)=>{
+      e.preventDefault();
+      try{
+        const response = await axios.get("http://localhost:8080/api/findpassword",{userId})
+
+        setPasswordMessage(response.data.message); //백엔드에서 비밀번호에 대한 정보를 받아온다.
+      }
+      catch(error){
+        setErrorMessage("아이디를 찾는 동안 오류가 발생했습니다."); // 오류 메시지를 받아온다.
+        console.log(errorMessage);
+      }
+    }
+   
 //메인 페이지에 들어가면, background image가 그냥 나타나는 것이 아니라 반응형으로 나타나게 하기.
 //배경음도 넣으면 좋다.
 
@@ -48,10 +64,12 @@ function App() {
           <form>
             <span className="findidpasswordtext">아이디/비밀번호찾기</span>
             <span className="findidpasswordtext1">아이디/비밀번호를 잊어버리셨다면, 이메일/아이디를 입력해서 아이디/비밀번호를 다시 찾으세요.</span>
-            <input  className="typeemail" type="text" placeholder="이메일 주소를 입력해주세요" />
-            <button  className="findemail" type="submit">이메일 찾기</button>
-            <input  className="typeid" type="text" placeholder="아이디를 입력해주세요." />
-            <button  className="findidpassword" type="submit">비밀번호 찾기</button>
+            <input  className="typeemail" type="text" placeholder="이메일 주소를 입력해주세요" value={email} onChange={(e)=>setEmail(e.target.value)} />
+            <button  className="findemail" type="submit" onClick={handleIdSubmit}>아이디 찾기</button>
+            <span className={idMessage==="아이디 값을 찾을 수 없습니다."? "red-text":"green-text"}>{idMessage}</span>
+            <input  className="typeid" type="text" placeholder="아이디를 입력해주세요." value={userId} onChange={(e)=>setUserId(e.target.value)} />
+            <button  className="findidpassword" type="submit"onClick={handlePasswordSubmit}>비밀번호 찾기</button>
+            <span className={passwordMessage==="비밀번호 값을 찾을 수 없습니다."? "red-text":"green-text"}>{idMessage}</span>
           <a href="/main" className="gotomain">메인 페이지로 돌아가시려면 여기를 클릭해주세요.</a>
           </form>
         </div>

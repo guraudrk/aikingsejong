@@ -104,4 +104,29 @@ public class Controller {
         }
 
     }
+
+    // 이메일로 아이디 찾기 요청 처리
+    // ResponseEntity.ok메서드에 전달되는 메시지는 service 함수에서 받아온 string 형식 그대로 반환한다.
+    @GetMapping("/api/findid")
+    public ResponseEntity<String> findIdByEmail(@RequestParam String email) {
+        String result = userservice.findIdByEmail(email);
+        if (result != null) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // 아이디로 비밀번호 찾기 요청 처리
+    // ResponseEntity.ok메서드에 전달되는 메시지는 service 함수에서 받아온 string 형식 그대로 반환한다.
+    @GetMapping("/api/findpassword")
+    public ResponseEntity<String> findPasswordById(@RequestParam String userId) {
+        String result = userservice.findPasswordById(userId);
+        if (result != null) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

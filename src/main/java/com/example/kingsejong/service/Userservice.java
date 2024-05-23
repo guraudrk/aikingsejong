@@ -184,12 +184,23 @@ public class Userservice {
     }
 
     // 이메일로 아이디 찾기
-    public Optional<UserEntity> findIdByEmail(String email) {
-        return UserRepository.findByEmail(email);
+    public String findIdByEmail(String email) {
+        UserEntity user = UserRepository.findByEmail(email).orElse(null);
+        if (user != null) {
+            return "아이디는 " + user.getUserID() + "입니다";
+        } else {
+            return "아이디 값을 찾을 수 없습니다.";
+        }
     }
 
     // 아이디로 비밀번호 찾기
-    public Optional<UserEntity> findPasswordById(String UserId) {
-        return UserRepository.findByUserID(UserId);
+    public String findPasswordById(String id) {
+        UserEntity user = UserRepository.findByUserID(id).orElse(null);
+        if (user != null) {
+            return "비밀번호는 " + user.getPassword() + "입니다";
+        } else {
+            return "비밀번호 값을 찾을 수 없습니다.";
+        }
     }
+
 }
