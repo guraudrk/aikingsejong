@@ -6,6 +6,8 @@ module.exports = function(app) {
   app.use('/api/signup', createProxyMiddleware({ target: 'http://localhost:8080', changeOrigin: true }));
   app.use('/api/findid', createProxyMiddleware({ target: 'http://localhost:8080', changeOrigin: true }));
   app.use('/api/findpassword', createProxyMiddleware({ target: 'http://localhost:8080', changeOrigin: true }));
+  app.use('/api/board',createProxyMiddleware({target:'http://localhost:8080',changeOrigin: true}));
+
 };
 
 

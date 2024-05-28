@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './css/WriteBoard.css';
 
 
@@ -8,13 +8,14 @@ function WriteBoard(){
 
 const [title,setTitle] = useState('');
 const [content,setContent] = useState('');
-const history = useHistory();
+const navigate = useNavigate();
 
 const handleSubmit = (e) =>{
     e.preventDefault();
-    axios.post('http://localhost:8080/api/board',{title,content})
+    const createdDate = new Date().toISOString();
+    axios.post('http://localhost:8080/api/board',{title,content,createdDate})
     .then(()=>{
-        history.push('/');
+        navigate('/');
     })
     .catch(error=>{
         console.error('게시글을 작성하는 데에 오류가 발생했습니다.',error);

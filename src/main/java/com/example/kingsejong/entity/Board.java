@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -26,4 +27,8 @@ public class Board {
 
     // getter와 setter는 Data 어노테이션으로 대체되었다.
 
+    @PrePersist
+    protected void onCreate() {
+        createdDate = LocalDateTime.now();
+    }
 }

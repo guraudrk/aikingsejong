@@ -12,7 +12,7 @@ function BoardDetail(){
 
 
     useEffect(()=>{
-        axios.get('http://localhost:8080/api/board/${id}')
+        axios.get(`http://localhost:8080/api/board/${id}`) //백틱으로 해야 변수 치환이 가능하다.
         .then(response=>{
             setBoard(response.data);
         })

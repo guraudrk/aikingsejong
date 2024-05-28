@@ -2,12 +2,13 @@ import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import App from './App';
-import Bulletinboard from './bulletinboard';
+import BoardDetail from './BoardDetail';
+import BoardList from './BoardList';
+import WriteBoard from './WriteBoard';
 import Findidpassword from './findidpassword';
 import Login from './login';
 import Main from './main';
 import Signup from './signup';
-import WritePost from './writePost';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -19,8 +20,9 @@ root.render(
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />
         <Route path="/findidpassword" element={<Findidpassword/>} />
-        <Route path="/bulletinboard" element={<Bulletinboard/>} />
-        <Route path="/writePost" element={<WritePost/>} />
+        <Route path="/bulletinboard" element={<BoardList />} />
+        <Route path="/writeBoard" element={<WriteBoard />} />
+        <Route path="/post/:id" element={<BoardDetail />} />
       </Routes>
     </Router>
   </StrictMode>
