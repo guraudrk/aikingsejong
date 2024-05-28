@@ -1,0 +1,49 @@
+package com.example.kingsejong.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.kingsejong.entity.Board;
+import com.example.kingsejong.service.BoardService;
+
+import lombok.RequiredArgsConstructor;
+
+//게시판 관련 controller이다.
+
+@RestController // react와의 연동을 위해 Springboot에서 RESTful API(데이터를 응답으로 제공)를 사용해 데이터를 주고받는다. json으로
+                // 데이터를 응답하는 것이다.
+// springboot, thymeleaf을 통해 풀스택 어플리케이션을 만들었다면, restcontroller를 사용하지 않았을 것이다.
+@RequiredArgsConstructor
+@CrossOrigin(origins = { "http://localhost:3000" })
+public class BoardController {
+
+    // service를 미리 정의한다.
+    @Autowired
+    private BoardService boardService;
+
+    // 게시판 페이지에서, 리스트를 보여줄 때 모든 데이터를 가져오게 하는 함수.
+    @GetMapping
+    public List<Board> getAllBoard() {
+        return boardService.getAllBoards();
+    }
+
+    // 헤당 아이디에 맞는 게시물을 가져오는 함수.
+    @GetMapping
+    public Board getBoardById(@PathVariable Long id) {
+        return boardService.getBoardById(id);
+    }
+
+    // 글을 다 작성하고, 그 글을 저장소에 저장하는 함수
+    @PostMapping
+    public Board createBoard(@RequestBody Board board) {
+        return boardService.createPost(board);
+    }
+
+}
