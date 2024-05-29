@@ -35,9 +35,7 @@ function BoardList(){
             </li>
           ))}
         </ul>
-        <Link to="/write" className="write-link">
-          글 쓰기
-        </Link>
+    
       </div>
     );
 };

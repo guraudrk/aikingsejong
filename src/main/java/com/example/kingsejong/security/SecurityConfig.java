@@ -16,8 +16,8 @@ public class SecurityConfig implements WebMvcConfigurer {
     http
         .csrf(csrf -> csrf.disable()) // 필요한 경우 CSRF 비활성화
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/api/checkemail", "/api/checkid", "/api/signup", "/api/login", "/api/login",
-                "/api/findid","/api/board")
+            .requestMatchers("/api/checkemail", "/api/checkid", "/api/signup", "/api/login",
+                "/api/findid", "/api/findpassword", "/api/board", "/api/board/**", "api/main") // 요청에 대한 보안 설정
             .permitAll() // 인증 없이 접근 허용
             .anyRequest().authenticated())
         .logout(logout -> logout

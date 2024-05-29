@@ -18,6 +18,8 @@ import com.example.kingsejong.dto.UserDTO.LoginRequest;
 import com.example.kingsejong.entity.UserEntity;
 import com.example.kingsejong.service.Userservice;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RestController // react와의 연동을 위해 Springboot에서 RESTful API(데이터를 응답으로 제공)를 사용해 데이터를 주고받는다. json으로
@@ -88,7 +90,7 @@ public class Controller {
 
     @PostMapping("/api/login")
     // 프론트에서는 json 형식의 데이터를 전송하고 있기 때문에, 백엔드에서는 requestbody를 써야 한다.
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) {
 
         String result = userservice.login(loginRequest.getUserId(), loginRequest.getPassword());
 
@@ -96,6 +98,9 @@ public class Controller {
 
         // 로그인 결과에 따라 적절한 응답 반환
         if (result != null) {
+            HttpSession session = request.getSession(); // session을 받는 식으로 로그인 정보를 처리한다.
+            // 이 때, httpservletrequest를 쓴다,
+            session.setAttribute("userId", loginRequest.getUserId()); // 아이디를 받는다.
             // 로그인 성공
             return ResponseEntity.ok("로그인 성공!");
         } else {
@@ -103,6 +108,19 @@ public class Controller {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패. 아이디 또는 비밀번호를 다시 확인해주세요.");
         }
 
+    }
+
+    // 로그아웃을 할 때 쓰이는 코드.
+    // 이를 쓰기 위해서는 메인 페이지에 로그아웃 버튼을 새롭게 만들어야 한다.
+    @PostMapping("/api/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false); // 세션을 받는다.
+
+        if (session != null) {
+            session.invalidate(); // 세션을 비활성화한다.
+        }
+
+        return ResponseEntity.ok("로그아웃 성공!");
     }
 
     // 이메일로 아이디 찾기 요청 처리
@@ -127,6 +145,22 @@ public class Controller {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    // 현재 이용하고 있는 유저가 누구인지 파악하는 앤드포인트
+    @GetMapping("/api/currentUser")
+    public ResponseEntity<Map<String, String>> currentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession(false); // session의 정보를 받는다.
+        Map<String, String> response = new HashMap<>();
+
+        if (session != null) {
+            String userId = (String) session.getAttribute("userId"); // String으로 감싼다. getAttribute을 통해 userId의 이름으로 저장된
+                                                                     // 정보(아이디)를 받아온다.
+            response.put("userId", userId); // 아이디가 있다면, 그것을 put한다.
+        } else {
+            response.put("userId", null);
+        }
+        return ResponseEntity.ok(response);
     }
 
 }
