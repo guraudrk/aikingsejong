@@ -146,7 +146,7 @@ public class Controller {
         }
     }
 
-    // 현재 이용하고 있는 유저가 누구인지 파악하는 앤드포인트
+    // 현재 이용하고 있는 유저가 누구인지 파악하는 앤드포인트이다.
     @GetMapping("/api/currentUser")
     public ResponseEntity<Map<String, String>> currentUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
