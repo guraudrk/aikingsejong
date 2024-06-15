@@ -39,6 +39,7 @@ function Login() {
             //로그인 처리
             console.log("Login Successful:",response.data);
             alert("로그인이 완료되었습니다.");
+            
             navigate('/main');
           })
         .catch(error=>{

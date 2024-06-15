@@ -48,4 +48,5 @@ public class BoardController {
         return boardService.createPost(board);
     }
 
+    
 }

@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
                 // 데이터를 응답하는 것이다.
 // springboot, thymeleaf을 통해 풀스택 어플리케이션을 만들었다면, restcontroller를 사용하지 않았을 것이다.
 @RequiredArgsConstructor
-@CrossOrigin(origins = { "http://localhost:3000" })
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class Controller {
 
     // service를 정의한다.
@@ -92,17 +92,16 @@ public class Controller {
     // 프론트에서는 json 형식의 데이터를 전송하고 있기 때문에, 백엔드에서는 requestbody를 써야 한다.
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) {
 
-        String result = userservice.login(loginRequest.getUserId(), loginRequest.getPassword());
+        String userId = loginRequest.getUserId();
+        String password = loginRequest.getPassword();
 
-        // 클라이언트로부터 받은 아이디와 비밀번호를 service를 통해 처리하여 로그인 수행
+        String result = userservice.login(userId, password);
 
         // 로그인 결과에 따라 적절한 응답 반환
         if (result != null) {
-            HttpSession session = request.getSession(); // session을 받는 식으로 로그인 정보를 처리한다.
-            // 이 때, httpservletrequest를 쓴다,
-            session.setAttribute("userId", loginRequest.getUserId()); // 아이디를 받는다.
-            // 로그인 성공
-            return ResponseEntity.ok("로그인 성공!");
+            HttpSession session = request.getSession(true); // 세션이 없으면 새로 생성하도록 변경
+            session.setAttribute("userId", userId); // 세션에 사용자 ID 설정
+            return ResponseEntity.ok("로그인 성공! 사용자 아이디: " + userId);
         } else {
             // 로그인 실패
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패. 아이디 또는 비밀번호를 다시 확인해주세요.");
@@ -150,13 +149,14 @@ public class Controller {
     // 현재 이용하고 있는 유저가 누구인지 파악하는 앤드포인트
     @GetMapping("/api/currentUser")
     public ResponseEntity<Map<String, String>> currentUser(HttpServletRequest request) {
-        HttpSession session = request.getSession(false); // session의 정보를 받는다.
+        HttpSession session = request.getSession(false);
         Map<String, String> response = new HashMap<>();
 
         if (session != null) {
-            String userId = (String) session.getAttribute("userId"); // String으로 감싼다. getAttribute을 통해 userId의 이름으로 저장된
-                                                                     // 정보(아이디)를 받아온다.
-            response.put("userId", userId); // 아이디가 있다면, 그것을 put한다.
+            String userId = (String) session.getAttribute("userId");
+            String sessionId = session.getId(); // 세션 ID 가져옴
+            response.put("userId", userId);
+            response.put("sessionId", sessionId); // 세션 ID를 응답에 추가
         } else {
             response.put("userId", null);
         }
