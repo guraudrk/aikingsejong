@@ -1,13 +1,13 @@
 .top-section{
-  background-color: gray;
+  background-color: #F0F0F0;
   height:40px;
 z-index:1; /*다른 요소 위에 배치*/
   position:relative; /*다른 요소와의 위치 관리*/
 }
 
 .bottom-section {
-  background-color: rgba(240, 240, 240, 1); /* 약간의 투명도를 가진 진한 흰색 */
-  height:70px;
+  background-color: #CCCCFF; /* 약간의 투명도를 가진 진한 흰색 */
+  height:50px;
   z-index:1; /*다른 요소 위에 배치*/
   position:relative; /*다른 요소와의 위치 관리*/
 }
@@ -35,4 +35,23 @@ z-index:1; /*다른 요소 위에 배치*/
   border-radius: 10px;
   border: 2px solid #000; /* 테두리 스타일, 두께 및 색상 설정 */
 }
+
+.small_text{
+  /*메인 페이지에서 작은 글자를 위한 className이다.*/
+  font-size: 10px;
+}
   
+
+
+.ifLogined a,
+.ifNotLogined a {
+  text-decoration: none; /* 링크의 밑줄 제거 */
+  color: white; /* 글자 색을 흰색으로 설정 */
+  transition: none; /* 방문 시 색 변화 없애기 */
+  margin-right: 30px; /* 각 링크 사이의 간격 설정 */
+}
+
+.ifLogined a:hover,
+.ifNotLogined a:hover {
+  color: white; /* 호버 시 글자 색 유지 */
+}

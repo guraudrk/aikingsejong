@@ -39,8 +39,11 @@ function Login() {
             //로그인 처리
             console.log("Login Successful:",response.data);
             alert("로그인이 완료되었습니다.");
+
+           // 로그인 후 아이디를 저장하고 메인 페이지로 이동
+           localStorage.setItem('userId', id); // 로컬 스토리지에 아이디 저장
             
-            navigate('/main');
+            navigate('/main'); //로그인을 완료하면 navigate을 활용해 메인 페이지로 이동한다.
           })
         .catch(error=>{
           //에러가 났을 때 처리를 한다.

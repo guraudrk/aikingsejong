@@ -146,21 +146,4 @@ public class Controller {
         }
     }
 
-    // 현재 이용하고 있는 유저가 누구인지 파악하는 앤드포인트이다.
-    @GetMapping("/api/currentUser")
-    public ResponseEntity<Map<String, String>> currentUser(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Map<String, String> response = new HashMap<>();
-
-        if (session != null) {
-            String userId = (String) session.getAttribute("userId");
-            String sessionId = session.getId(); // 세션 ID 가져옴
-            response.put("userId", userId);
-            response.put("sessionId", sessionId); // 세션 ID를 응답에 추가
-        } else {
-            response.put("userId", null);
-        }
-        return ResponseEntity.ok(response);
-    }
-
 }

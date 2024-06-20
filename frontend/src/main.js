@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import './css/main.css';
 
 
@@ -10,27 +10,20 @@ const imageurl = "https://aikingsejong.s3.ap-northeast-2.amazonaws.com/201310071
 function App() {
 
 
-
+  const navigate = useNavigate();
 
 
   //백엔드에서 가져온 데이터를 저장한다.
   //fetch 요청 시 헤더에 accept:application/json을 명시해서 json형식의 응답을 받도록 할 수 있다.
     const [currentUser,setCurrentUser] = useState(null);
         useEffect(() => {
-     // Fetch current user session
-    axios.get(`http://localhost:8080/api/currentUser`, { withCredentials: true })
-    .then(response => {
-      console.log("response:",response);
-      const data = response.data; // JSON 형식의 데이터로 가정
-      console.log("data:",data);
-      const userId = data.userId; // 데이터에서 userId 속성 추출
-      console.log("userId:",userId);
-      setCurrentUser(userId);    })
-    .catch(error => {
-      console.error("로그인 유저를 불러오는 대에 오류가 생겼습니다.:", error);
-      alert("로그인 유저를 불러오는 대에 오류가 생겼습니다.")
+   
+          //페이지 로드 시 localStorage에서 사용자 아이디 가져오기
+          const storedUserId = localStorage.getItem('userId');
+          if (storedUserId) { //가져온 아이디를 setCurrentUser에 저장한다.
+            setCurrentUser(storedUserId);
+          }
     
-    });
     }, []);
     useEffect(() => {
       if (currentUser) {
@@ -46,16 +39,12 @@ function App() {
     //로그아웃을 할 때 쓰는 함수.
     const handleLogout = () =>{
 
-      //포른트엔드에서 axios 요청 시 세션 정보를 포함하도록 withCredemtials를 true로 한다.
-      axios.post("http://localhost:8080/api/logout", { withCredentials: true })
-      .then(()=>{
+    
+        //로그아웃 성공 시 localStorage에서 사용자 정보 제거
+        localStorage.removeItem('userId');
         setCurrentUser(null); //currentuser를 null로 만든다.
 
-      })
-      .catch(error=>{
-        console.error("로그아웃 도중에 문제가 발생했습니다.:", error);
-        alert("로그아웃 도중에 문제가 발생했습니다.");
-      })
+  
     }
 
 
@@ -69,17 +58,34 @@ function App() {
           {/* 내용 */}
           {
             currentUser && (
-              <div>
-                <span>환영합니다.{currentUser}님!</span>
-                <button onClick={handleLogout}>로그아웃</button>
+               /*currentUser가 있을 경우에는 아래와 같은 것을 출력한다.*/              <div>
+                <span>환영합니다. {currentUser}님!</span>
               </div>
             )
           }
         </div>
 
-         {/* 아래쪽 흰색 배경 */}
+         {/* 아래쪽 흰색 배경
+         이 부분에는 각 페이지로 이동할 수 있는 링크들이 존재한다. */}
+         {/*로그인이 되었을 때 보여지는 항목들*/ }
          <div className="bottom-section">
-          {/* 내용 */}
+          {currentUser &&(
+            <div className="ifLogined">
+              <Link to="/bulletinboard">게시판</Link>
+              <Link to="/aikingsejong">AI 세종대왕 사용</Link>
+              <Link to="/signup">회원가입</Link>
+              <Link onClick={handleLogout} to="/main">로그아웃</Link> 
+
+            </div>
+          )}
+          {/*로그아웃 되었을 때 보여지는 항목들*/ }
+          {!currentUser&&(
+            <div className="ifNotLogined">
+              <Link to="/aikingsejong">AI 세종대왕 사용</Link>
+              <Link to="/signup">회원가입</Link>
+              <Link to="/login">로그인</Link>
+              </div>
+          )}
         </div>
 
         {/* 배경 이미지 ----aws s3를 이용해서 이미지를 불러모은다.*/}
@@ -88,7 +94,8 @@ function App() {
           <h1>AI 세종대왕에 오신 것을 환영합니다!</h1>
           <p>AI 세종대왕은 세종대왕님과 대화할 수 있는 서비스입니다.</p>
           <p>세종대왕님에 대한 많은 정보를 얻어가세요!</p>
-          <button onClick={() => { /* 버튼 클릭 시 동작할 내용 */ }}>Click Me</button>
+          <p className="small_text">(게시판 기능을 이용하시려면 로그인해주세요.)</p>
+          <button onClick={() => { navigate('/aikingsejong')}}> AI세종대왕 사용</button>
           
         </div>
       </div>
