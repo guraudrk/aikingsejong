@@ -20,11 +20,11 @@ function App() {
      // Fetch current user session
     axios.get(`http://localhost:8080/api/currentUser`, { withCredentials: true })
     .then(response => {
-      console.log(response);
+      console.log("response:",response);
       const data = response.data; // JSON 형식의 데이터로 가정
-      console.log(data);
+      console.log("data:",data);
       const userId = data.userId; // 데이터에서 userId 속성 추출
-      console.log(userId);
+      console.log("userId:",userId);
       setCurrentUser(userId);    })
     .catch(error => {
       console.error("로그인 유저를 불러오는 대에 오류가 생겼습니다.:", error);

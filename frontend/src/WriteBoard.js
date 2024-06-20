@@ -15,6 +15,7 @@ useEffect(() => {
   axios.get('http://localhost:8080/api/currentUser') //세션을 받아와서 사용자의 아이디를 받아온다.
   .then(response => {
       setUserId(response.data.userId); //userid 변수에 아이디를 저장한다.
+      console.log(response.data.userId);
       if (!response.data.userId) {
           alert("로그인이 필요합니다."); //로그인 정보가 없으면 로그인 페이지로 돌려보낸다.
           navigate('/login'); //navigate을 사용해서 페이지를 이동시킨다. navigate는link와 다르게 특정 행동을 했을 때 해당 주소로 이동할 수 있게 만들어준다.

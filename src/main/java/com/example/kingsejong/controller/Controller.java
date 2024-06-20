@@ -101,7 +101,7 @@ public class Controller {
         if (result != null) {
             HttpSession session = request.getSession(true); // 세션이 없으면 새로 생성하도록 변경
             session.setAttribute("userId", userId); // 세션에 사용자 ID 설정
-            return ResponseEntity.ok("로그인 성공! 사용자 아이디: " + userId);
+            return ResponseEntity.ok("로그인 성공! 사용자 아이디: " + userId); // 로그인이 성공하면 이 코드가 로그인 페이지로 이동한다.
         } else {
             // 로그인 실패
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패. 아이디 또는 비밀번호를 다시 확인해주세요.");
