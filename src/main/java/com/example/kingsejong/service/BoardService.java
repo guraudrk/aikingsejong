@@ -14,22 +14,24 @@ public class BoardService {
     @Autowired
     private BoardRepository boardrepository;
 
-
-    //모든 boards를 찾는 코드. list를 정의한다.
+    // 모든 boards를 찾는 코드. list를 정의한다.
     public List<Board> getAllBoards() {
         return boardrepository.findAll();
     }
 
-    public Board getBoardById(Long id){
+    public Board getBoardById(Long id) {
 
-        //아이디를 찾고 찾지 못하면 null 반환.
+        // 아이디를 찾고 찾지 못하면 null 반환.
         return boardrepository.findById(id).orElse(null);
     }
 
-
-    //작성한 게시물을 저장하는 service.
-    public Board createPost(Board board){
+    // 작성한 게시물을 저장하는 service.
+    public Board createPost(Board board) {
         return boardrepository.save(board);
+    }
+
+    public void deletePost(Long id) {
+        boardrepository.deleteById(id);
     }
 
 }

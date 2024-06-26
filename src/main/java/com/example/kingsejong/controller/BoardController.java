@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,4 +49,10 @@ public class BoardController {
         return boardService.createPost(board);
     }
 
+    // 게시물 삭제를 위한 메서드. deletemapping을 쓴다.
+    // pathvariable은 경로 변수를 표기하기 위해 메서드의 매개변수에 사용된다.
+    @DeleteMapping("/{id}")
+    public void deleteBoard(@PathVariable Long id) {
+        boardService.deletePost(id);
+    }
 }
