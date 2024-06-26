@@ -13,8 +13,7 @@ function App() {
   const navigate = useNavigate();
 
 
-  //백엔드에서 가져온 데이터를 저장한다.
-  //fetch 요청 시 헤더에 accept:application/json을 명시해서 json형식의 응답을 받도록 할 수 있다.
+
     const [currentUser,setCurrentUser] = useState(null);
         useEffect(() => {
    

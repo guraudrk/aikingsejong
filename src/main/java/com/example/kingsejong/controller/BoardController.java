@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 // springboot, thymeleaf을 통해 풀스택 어플리케이션을 만들었다면, restcontroller를 사용하지 않았을 것이다.
 @RequiredArgsConstructor
 @CrossOrigin(origins = { "http://localhost:3000" })
-@RequestMapping("api/board") //여기에서 미리 앤드포인트를 지정하면 좋다. 밑에서 굳이 엔드포인트를 지정할 필요가 없다.
+@RequestMapping("api/board") // 여기에서 미리 앤드포인트를 지정하면 좋다. 밑에서 굳이 엔드포인트를 지정할 필요가 없다.
 public class BoardController {
 
     // service를 미리 정의한다.
@@ -48,5 +48,4 @@ public class BoardController {
         return boardService.createPost(board);
     }
 
-    
 }

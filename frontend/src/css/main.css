@@ -3,6 +3,7 @@
   height:40px;
 z-index:1; /*다른 요소 위에 배치*/
   position:relative; /*다른 요소와의 위치 관리*/
+  font-size:20px;
 }
 
 .bottom-section {
@@ -10,6 +11,7 @@ z-index:1; /*다른 요소 위에 배치*/
   height:50px;
   z-index:1; /*다른 요소 위에 배치*/
   position:relative; /*다른 요소와의 위치 관리*/
+  font-size:20px;
 }
 
 .background-image{
