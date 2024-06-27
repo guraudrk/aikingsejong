@@ -106,8 +106,9 @@ return (
             />
           </label>
         </div>
+        <div className="submit-button-container">
         <button type="submit" className="submit-button">제출</button>
-      </form>
+      </div>      </form>
     </div>
     </div>
 );

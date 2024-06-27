@@ -134,6 +134,7 @@ textarea {
   display: flex;
   justify-content: center; /* 버튼들을 가운데 정렬 */
   gap: 20px; /* 버튼 사이 간격 */
+  margin-left:200px;
 }
 
 

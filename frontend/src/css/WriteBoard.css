@@ -60,7 +60,9 @@ textarea {
     display: block;
   }
   
-
+  .submit-button-container {
+    text-align: center; /* 버튼을 가운데 정렬하기 위해 추가 */
+  }
   
   .submit-button {
     padding: 10px 10px;
@@ -72,7 +74,7 @@ textarea {
     border-radius: 5px;
     width:50%;
     display: block;
-    margin: 0 auto; /*auto을 통해 요소를 부모 컨테이너의 가로 가운데로 위치시킨다. 이를 통해 버튼을 가운데로 정렬한다.*/
+
     
   }
 
