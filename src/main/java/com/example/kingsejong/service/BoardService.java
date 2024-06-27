@@ -1,5 +1,6 @@
 package com.example.kingsejong.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,16 @@ public class BoardService {
 
     public void deletePost(Long id) {
         boardrepository.deleteById(id);
+    }
+
+    // 게시물 수정에 대한 service 코드이다.
+    public Board updatePost(Long id, Board updatedBoard) {
+        Board board = boardrepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid board Id:" + id));
+        board.setTitle(updatedBoard.getTitle()); // board의 entity에서 data어노테이션을 통해 getter,setter를 설정할 필요가 없어졌다.
+        board.setContent(updatedBoard.getContent());
+        board.setCreatedDate(LocalDateTime.now()); // 수정 날짜를 현재 시간으로 설정
+        return boardrepository.save(board);
     }
 
 }

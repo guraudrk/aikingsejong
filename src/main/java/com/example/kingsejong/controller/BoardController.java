@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.kingsejong.entity.Board;
@@ -23,7 +25,8 @@ import lombok.RequiredArgsConstructor;
                 // 데이터를 응답하는 것이다.
 // springboot, thymeleaf을 통해 풀스택 어플리케이션을 만들었다면, restcontroller를 사용하지 않았을 것이다.
 @RequiredArgsConstructor
-@CrossOrigin(origins = { "http://localhost:3000" })
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
+        RequestMethod.PUT, RequestMethod.DELETE })
 @RequestMapping("api/board") // 여기에서 미리 앤드포인트를 지정하면 좋다. 밑에서 굳이 엔드포인트를 지정할 필요가 없다.
 public class BoardController {
 
@@ -54,5 +57,12 @@ public class BoardController {
     @DeleteMapping("/{id}")
     public void deleteBoard(@PathVariable Long id) {
         boardService.deletePost(id);
+    }
+
+    // put 엔드포인트를 추가해서 게시글을 업데이트 한다.
+    @PutMapping("/{id}")
+    public Board updateBoard(@PathVariable Long id, @RequestBody Board updateBoard) {
+        return boardService.updatePost(id, updateBoard);
+
     }
 }
