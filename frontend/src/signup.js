@@ -37,8 +37,8 @@ function Signup() {
                 params: { email: email } // 쿼리 파라미터로 email을 전달
               });
               const message = response.data.message; //백엔드에서 보내준 data를 받는다.
-              console.log(message);
-            
+
+              
              
 
               if (message === "이미 존재하는 이메일입니다.") {
@@ -71,7 +71,6 @@ function Signup() {
 
           );
           const idMessage = idResponse.data.message;
-          console.log(idMessage);
    
           if (idMessage === "이미 존재하는 아이디입니다.") {
             setIdMessage("이미 존재하는 아이디입니다.");
@@ -98,18 +97,14 @@ function Signup() {
       if (password !== "" && passwordConfirm !== "") {
         if (password === passwordConfirm && password.length>=10) {
           setPasswordMatchMessage("비밀번호와 비밀번호 확인이 일치합니다.");
-          console.log("비밀번호와 비밀번호 확인이 일치합니다.")
         } else if(password === passwordConfirm &&password.length<10){
           setPasswordMatchMessage("비밀번호는 10자 이상이어야 합니다.");
-          console.log("비밀번호는 10자 이상이어야 합니다.")
         }
         else if(password !== passwordConfirm &&password.length>=10){
           setPasswordMatchMessage("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-          console.log("비밀번호와 비밀번호 확인이 일치하지 않습니다.")
         }
         else{
           setPasswordMatchMessage("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-          console.log("비밀번호와 비밀번호 확인이 일치하지 않습니다.")
         }
       }
 
@@ -119,10 +114,8 @@ function Signup() {
         idMessage === "사용 가능한 아이디입니다." &&
         passwordMatchMessage === "비밀번호와 비밀번호 확인이 일치합니다."
       ) {
-        console.log("모든 조건 만족");
         setIsValid(true);
       } else {
-        console.log("회원 가입 불가");
         setIsValid(false);
       }
     
@@ -155,7 +148,6 @@ function Signup() {
         .then(response => {
           // 회원가입 성공
           //ResponseEntity.ok에서 대답을 잘 받으면 이 부분이 처리된다.
-          console.log("Signup successful:", response.data);
           alert("회원가입이 완료되었습니다. 이제 세종대왕님과 즐거운 대화를 즐겨보세요:)");
        //회원가입 완료 시 메인 페이지로 이동.
        navigate('/main');

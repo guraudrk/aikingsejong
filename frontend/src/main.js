@@ -26,7 +26,7 @@ function App() {
     }, []);
     useEffect(() => {
       if (currentUser) {
-          console.log("로그인을 환영합니다! 로그인된 아이디: ", currentUser);
+         
       } else {
           console.log("로그인 되어 있지 않습니다.");
       }

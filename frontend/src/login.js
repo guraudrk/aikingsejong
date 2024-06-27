@@ -37,7 +37,6 @@ function Login() {
           })
           .then(response=>{
             //로그인 처리
-            console.log("Login Successful:",response.data);
             alert("로그인이 완료되었습니다.");
 
            // 로그인 후 아이디를 저장하고 메인 페이지로 이동
