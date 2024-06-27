@@ -40,7 +40,7 @@ z-index:1; /*다른 요소 위에 배치*/
 
 .small_text{
   /*메인 페이지에서 작은 글자를 위한 className이다.*/
-  font-size: 10px;
+  font-size: 15px;
 }
   
 

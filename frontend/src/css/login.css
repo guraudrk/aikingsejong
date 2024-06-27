@@ -35,7 +35,7 @@
   /*로그인 로고에 대한 설정. 부모 요소는 left-section이다.*/
   .loginlogo{
 
-    width:5vw;
+    width:7vw;
     position:absolute;
     top:0;
     left:20px;
@@ -74,26 +74,19 @@
     
   }
   
-  .form-element1 {
+  .form-element1, .form-element2 {
     opacity: 0; /*요소의 투명도를 정할 수 있다.*/
-    animation: fadeIn 1.5s ease forwards; /*animation을 통해 페이지를 더 동적으로 만든다.*/
-    margin-bottom: 40px;
-    margin-left:20px;
-    margin-right:20px;
-    border: 1.5px solid rgba(0, 0, 255, 0.4);; /* 기본 테두리 설정 */
-    border-radius: 10px; /* 테두리를 둥글게 만듦 */
-    padding: 10px; /* 내부 여백 설정 */
-}
-.form-element2 {
-  opacity: 0; /*요소의 투명도를 정할 수 있다.*/
-    animation: fadeIn 1.5s ease forwards; /*animation을 통해 페이지를 더 동적으로 만든다.*/
+  animation: fadeIn 1.5s ease forwards; /*animation을 통해 페이지를 더 동적으로 만든다.*/
   margin-bottom: 40px;
-  margin-left:20px;
-    margin-right:20px;
-  border: 1.5px solid rgba(0, 0, 255, 0.4);; /* 기본 테두리 설정 */
+  margin-left: 20px;
+  margin-right: 30px;
+  border: 1.5px solid rgba(0, 0, 255, 0.4); /* 기본 테두리 설정 */
   border-radius: 10px; /* 테두리를 둥글게 만듦 */
   padding: 10px; /* 내부 여백 설정 */
+  width: calc(70%); /* 부모 요소의 너비에 맞게 설정 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 전체 너비를 계산 */
 }
+
 
 
 .logintext {
@@ -133,6 +126,7 @@
 
 .form-element3:hover{
   background-color: lightblue;
+  transform: translateY(-5px);
 }
 
 .gotosignup {
@@ -148,4 +142,5 @@
 .gotosignup:hover, /*방문한 상태일 때와 커서를 올렸을 때 색을 같게 하기 위해서는 이렇게 한다.*/
 .gotosignup:visited {
   color: #888; /* 방문한 상태일 때도 색상 유지 */
+  transform: translateY(-5px);
 }
