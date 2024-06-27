@@ -105,12 +105,12 @@ function BoardDetail() {
         }
       </div>
       <div className="write-post-container">
-        <h1>글 쓰기</h1>
+        
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>
               제목:
-              <input
+              <input className="titletext"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -134,9 +134,11 @@ function BoardDetail() {
           </div>
           {currentUserId === board.userId && (
             <>
-              <button type="button" onClick={handleDelete} className="delete-button">삭제</button>
-              {!isEditing && <button type="button" onClick={handleUpdate} className="update-button">수정</button>} {/*isEditing의 상태에 따라 버튼의 상태를 바꾼다.*/}
-              {isEditing && <button type="submit" className="submit-button">제출</button>}
+               <div className="button-container">
+    <button type="button" onClick={handleDelete} className="delete-button">삭제</button>
+    {!isEditing && <button type="button" onClick={handleUpdate} className="update-button">수정</button>}
+    {isEditing && <button type="submit" className="submit-button">제출</button>}
+  </div>
             </>
           )}
         </form>

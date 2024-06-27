@@ -52,14 +52,16 @@ body {
 label {
   display: block;
 }
-
-input[type="text"],
+.titletext,
 textarea {
-  width: 100%;
+  width: calc(100%);
   padding: 10px;
   margin-top: 5px;
+  margin-left:100px;
   box-sizing: border-box;
+  border-radius: 10px;
 }
+
 
 .submit-button {
   padding: 10px 10px;
@@ -103,16 +105,15 @@ textarea {
 }
 
 .delete-button {
-  padding: 10px 10px;
-  background-color: #FF0000; /* 예시로 빨간색 배경 */
-  color: white;
-  border: none;
-  cursor: pointer;
+  padding:10px 10px;
+  background-color: red; /*예시로 빨간색 배경*/
+  color:white;
+  cursor:pointer;
   border: black 2px solid;
   border-radius: 5px;
   width: 50%;
   display: block;
-  margin: 10px auto 0;
+  margin: 0 auto;
 }
 
 
@@ -129,7 +130,26 @@ textarea {
 
 /*수정버튼, 제출 버튼에 대한 css*/
 
-.update-button, .submit-button{
+.button-container {
+  display: flex;
+  justify-content: center; /* 버튼들을 가운데 정렬 */
+  gap: 20px; /* 버튼 사이 간격 */
+}
+
+
+.update-button{
+  padding:10px 10px;
+  background-color: #007bff;
+  color:white;
+  cursor:pointer;
+  border: black 2px solid;
+  border-radius: 5px;
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.submit-button{
   padding:10px 10px;
   background-color: #007bff;
   color:white;
@@ -143,4 +163,17 @@ textarea {
 
 .update-button:hover, .submit-button:hover{
   transform: translateY(-5px);
+}
+
+.delete-button:hover{
+
+  background-color:darkred;
+}
+
+.update-button:hover{
+  background-color: aqua;
+}
+
+.submit-button:hover{
+  background-color:aqua;
 }

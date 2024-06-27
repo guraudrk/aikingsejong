@@ -198,7 +198,7 @@ function Signup() {
             */}
             <input  className="typeemail" type="email" placeholder="이메일 주소를 입력해주세요" value={email} onChange={(e)=>setEmail(e.target.value)}/>
             <span className={emailMessage === "이미 존재하는 이메일입니다." ? "red-text" : "green-text"}>{emailMessage}</span>
-            <input  className="typeid" type="text" placeholder="아이디 입력" value={id} onChange={(e)=>setId(e.target.value)}/>
+            <input  className="typesignupid" type="text" placeholder="아이디 입력" value={id} onChange={(e)=>setId(e.target.value)}/>
             <span className={idMessage === "이미 존재하는 아이디입니다." ? "red-text" : "green-text"}>{idMessage}</span>
             <input  className="typepassword" type="password" placeholder="비밀번호 입력(10자 이상)" value={password} onChange={(e)=>setPassword(e.target.value)} />
             <input className="typepasswordconfirm" type="password"placeholder="비밀번호를 한번 더 입력해주세요." value={passwordConfirm} onChange={(e)=>setPasswordConfirm(e.target.value)}></input>

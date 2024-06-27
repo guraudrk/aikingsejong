@@ -87,7 +87,7 @@ return (
         <div className="form-group">
           <label>
             제목:
-            <input
+            <input className="titletext"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}

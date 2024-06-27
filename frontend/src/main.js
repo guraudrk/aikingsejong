@@ -94,7 +94,7 @@ function App() {
           <p>AI 세종대왕은 세종대왕님과 대화할 수 있는 서비스입니다.</p>
           <p>세종대왕님에 대한 많은 정보를 얻어가세요!</p>
           <p className="small_text">(게시판 기능을 이용하시려면 로그인해주세요.)</p>
-          <button onClick={() => { navigate('/aikingsejong')}}> AI세종대왕 사용</button>
+          <button className='useAiKingSejongButton' onClick={() => { navigate('/aikingsejong')}}> AI세종대왕 사용</button>
           
         </div>
       </div>

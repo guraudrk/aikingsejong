@@ -57,3 +57,22 @@ z-index:1; /*다른 요소 위에 배치*/
 .ifNotLogined a:hover {
   color: white; /* 호버 시 글자 색 유지 */
 }
+
+.useAiKingSejongButton{
+  opacity: 0; /*요소의 투명도를 정할 수 있다.*/
+  animation: fadeIn 2s ease forwards; /*animation을 통해 페이지를 더 동적으로 만든다.*/
+height:40px;
+border-radius: 10px;
+background-color: skyblue;
+margin-left:20px;
+margin-right:20px;
+margin-bottom: 40px; /* 간격 조절 */
+text-decoration-color: white;
+cursor:pointer; /*마우스 커서를 포인터로 변경*/
+
+}
+
+.useAiKingSejongButton:hover{ /*방문한 상태일 때와 커서를 올렸을 때 색을 같게 하기 위해서는 이렇게 한다.*/
+  background-color: lightblue;
+  transform: translateY(-5px);
+}

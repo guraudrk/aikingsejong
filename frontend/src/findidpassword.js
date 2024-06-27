@@ -62,7 +62,7 @@ function App() {
           <div className="logo-container"> {/* div로 감싼 다음, 그 안에 img,span을 넣는다.*/ }
           {/* a로 감싼 다음, img를 설정하면 img를 클릭 시 다른 사이트로 이동할 수 있게 해준다.*/ }
           <a href="/main">
-          <img className="signuplogo" src="https://aikingsejong.s3.ap-northeast-2.amazonaws.com/aikingsejonglogo.png" alt="로고" />
+          <img className="findidpasswordlogo" src="https://aikingsejong.s3.ap-northeast-2.amazonaws.com/aikingsejonglogo.png" alt="로고" />
           </a>
   
           </div>
