@@ -101,7 +101,7 @@ return (
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              rows="20"
+              rows="15"
               required
             />
           </label>

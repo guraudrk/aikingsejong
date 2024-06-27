@@ -125,7 +125,7 @@ function BoardDetail() {
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                rows="20"
+                rows="15"
                 readOnly={!isEditing} /*이놈도, 수정 모드가 아닐 경우에는 읽기만 가능하다.*/
                 required
               />
